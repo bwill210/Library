@@ -1,0 +1,44 @@
+html {
+    background-color: aqua;
+}
+
+header {
+    text-align: center;
+    font-size: 24pt;
+}
+
+.card {
+    height: 400px;
+    width: 400px;
+    background-color: antiquewhite;
+    border-radius: 12px;
+    margin: 12px 12px 12px 12px;
+    padding: 10px 10px 10px 10px;
+    display: grid;
+    grid-template-rows: 12fr 1fr 1fr;
+}
+
+.card > img {
+    grid-row: 1;
+    max-width: 95%;
+    align-self: center;
+    justify-self: center;
+
+}
+
+.card > h3 {
+    grid-row: 2;
+    margin: 0 0 0 0;
+    padding: 0 0 0 0;
+}
+
+.card > p {
+    grid-row: 3;
+    margin: 0 0 0 0;
+    padding: 0 0 0 0;
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+}
