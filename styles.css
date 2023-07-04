@@ -1,44 +1,101 @@
 html {
     background-color: aqua;
+    margin: 0 0 0 0;
+}
+
+body {
+    display: grid;
+    grid-template-rows: 1fr 6fr;
 }
 
 header {
-    text-align: center;
-    font-size: 24pt;
+    grid-row: 1;
+    display: grid;
+    grid-template-columns: 1fr 3fr 1fr;
+}
+
+header > h1 {
+    grid-column: 2;
+    justify-self: center;
+}
+
+header > div {
+    grid-column: 3;
+    align-self: center;
+    justify-self: center;
+}
+
+.addBook-btn {
+    background-color: rgb(0, 155, 155);
+    color:white;
+    width: 150px;
+    height: 40px;
+    border-radius: 12px;
+}
+
+.form-popup {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    right: 15px;
+    border: 3px solid maroon;
+    z-index: 9;
+}
+
+.form-container {
+    max-width: 300px;
+    padding: 10px;
+    background-color: white;
+  }
+
+.container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    grid-row: 2;
 }
 
 .card {
-    height: 400px;
-    width: 400px;
+    height: clamp(150px, 25vh, 300px);
+    width: clamp(100px, 15vw, 250px);
     background-color: antiquewhite;
     border-radius: 12px;
-    margin: 12px 12px 12px 12px;
     padding: 10px 10px 10px 10px;
+    margin: 10px 10px 10px 10px;
     display: grid;
-    grid-template-rows: 12fr 1fr 1fr;
+    grid-template-rows: 9fr 1fr 1fr;
+    box-shadow: 5px 5px 3px rgb(2, 141, 141);
 }
 
-.card > img {
+.imgContainer {
     grid-row: 1;
-    max-width: 95%;
-    align-self: center;
+    height: 100%;
+    width: 100%;
+    background-color: blueviolet;
     justify-self: center;
-
+    align-self: center;
+    overflow: hidden;
 }
 
-.card > h3 {
+.imgContainer > img {
+    width: 100%;
+}
+
+.card > h4 {
     grid-row: 2;
-    margin: 0 0 0 0;
-    padding: 0 0 0 0;
+    margin: 5px 0 5px 0;
+    height: 18px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .card > p {
     grid-row: 3;
     margin: 0 0 0 0;
-    padding: 0 0 0 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
-.container {
-    display: flex;
-    flex-direction: row;
-}
+
