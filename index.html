@@ -8,30 +8,36 @@
 </head>
 <body>
     <header>
+        <div id="left-corner"></div>
         <h1>Website Header</h1>
-        <div>
+        <div id="right-corner">
             <button class="addBook-btn" onclick="openForm()">+ Add Book</button>
-
-            <div class="form-popup" id="bookForm">
-                <form onsubmit="return addBookToLibrary(this)" class="form-container">
-                    <div>
-                        <label for="title">Book Title:</label>
-                        <input type="text" id="title" name="title" required>
-                    </div>
-                    <div>
-                        <label for="author">Author:</label>
-                        <input type="text" id="author" name="author" required>
-                    </div>
-                    <button type="submit" class="btn">Submit</button>
-                    <button type="button" class="btn-cancel" onclick="closeForm()">Close</button>
-                </form>
-            </div>
-
+        </div>
+        <div class="form-popup" id="bookForm">
+            <form id="addBook-form">
+                <h2>Add New Book</h2>
+                <div>
+                    <label for="title">Book Title:</label>
+                    <br>
+                    <input type="text" id="title" name="title" required>
+                </div>
+                <div>
+                    <label for="author">Author:</label>
+                    <br>
+                    <input type="text" id="author" name="author" required>
+                </div>
+                <button type="submit" class="btn">Submit</button>
+                <button type="button" class="btn-cancel" onclick="closeForm()">Close</button>
+            </form>
         </div>
     </header>
-    <div class="container">
 
-    </div>
+    <main class="container">
+
+    </main>
+    <footer class="footer">
+
+    </footer>
     <script src="script.js"></script>
 </body>
 </html>
