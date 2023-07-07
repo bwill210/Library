@@ -60,14 +60,14 @@ header > #right-corner {
 
 .container {
     grid-row: 2;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    justify-items: center;
  
 }
 
-.card {
+.card:has(.beenRead-true) {
     height: min(240px, 25vh);
     width: max(140px, 20vw);
     background-color: rgb(207, 210, 255);
@@ -75,8 +75,26 @@ header > #right-corner {
     padding: 10px 10px 10px 10px;
     margin: 10px 10px 10px 10px;
     display: grid;
-    grid-template-rows: 9fr 1fr 1fr;
+    grid-template-rows: 9fr 1fr 1fr 1fr 1fr;
     box-shadow: 5px 5px 3px rgb(2, 141, 141);
+    border-bottom-style: solid;
+    border-bottom-color: rgb(115, 255, 115);
+    border-bottom-width: 10px;
+}
+
+.card:has(.beenRead-false) {
+    height: min(240px, 25vh);
+    width: max(140px, 20vw);
+    background-color: rgb(207, 210, 255);
+    border-radius: 12px;
+    padding: 10px 10px 10px 10px;
+    margin: 10px 10px 10px 10px;
+    display: grid;
+    grid-template-rows: 9fr 1fr 1fr 1fr 1fr;
+    box-shadow: 5px 5px 3px rgb(2, 141, 141);
+    border-bottom-style: solid;
+    border-bottom-color: rgb(255, 150, 150);
+    border-bottom-width: 10px;
 }
 
 .imgContainer {
@@ -93,7 +111,7 @@ header > #right-corner {
     width: 100%;
 }
 
-.card > h4 {
+.card > h4#title {
     height: 18px;
     grid-row: 2;
     margin: 5px 0 5px 0;
@@ -102,9 +120,9 @@ header > #right-corner {
     text-overflow: ellipsis;
 }
 
-.card > p {
-    height: 18px;
-    grid-row: 3;
+.card > #details {
+    height: 24px;
+    grid-row: 3 4 5;
     margin: 0 0 0 0;
     white-space: nowrap;
     overflow: hidden;
