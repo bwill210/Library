@@ -26,6 +26,18 @@
                     <br>
                     <input type="text" id="author" name="author" required>
                 </div>
+                <div>
+                    <label for="pages">Pages:</label>
+                    <br>
+                    <input type="number" id="pages" name="pages" required>
+                </div>
+                <div>
+                    <p>Have you read it?</p>
+                    <input type="radio" id="hasBeenRead" name="hasBeenRead" value="true" required>
+                    <label for="hasBeenRead">Yes</label>
+                    <input type="radio" id="hasBeenRead" name="hasBeenRead" value="false" required>
+                    <label for="hasBeenRead">No</label>
+                </div>
                 <button type="submit" class="btn">Submit</button>
                 <button type="button" class="btn-cancel" onclick="closeForm()">Close</button>
             </form>
