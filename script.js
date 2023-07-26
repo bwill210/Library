@@ -50,51 +50,77 @@ function addBookToLibrary(title, author, pages, hasBeenRead) {
     showBooks();
 };
 
+function removeAllChildNodes(parent) {
+//used to clear books from container before showing updated library.
+    while (parent.firstChild) {
+        parent.removeChild(parent.firstChild);
+    }
+}
+
 const container = document.querySelector(".container");
+
+function createCard(index) {
+    //create card element
+    const card = document.createElement("div");
+    card.className = "card";
+    const imageContainer = document.createElement("div");
+    imageContainer.className = "imgContainer";
+    //select bookObject from array
+    let bookObject = myLibrary[index];
+    //create cardImage element
+    const cardImage = document.createElement("img");
+    cardImage.src = bookObject.img_path;
+    //create section for book title
+    const bookTitle = document.createElement("h4");
+    bookTitle.textContent = bookObject.title;
+    bookTitle.id = "title";
+    //create p tag for book author
+    const bookAuthor = document.createElement("div");
+    bookAuthor.id = "details";
+    bookAuthor.textContent = "by " + bookObject.author;
+    //pages in book
+    const bookPages = document.createElement("div");
+    bookPages.id = "details";
+    bookPages.textContent = "Pages: " + bookObject.pages;
+    //has been read?
+    const beenRead = document.createElement("h4");
+    if (bookObject.hasBeenRead == "true") {
+        beenRead.textContent = "Not Read";
+        beenRead.id = "details";
+        beenRead.className = "beenRead-false"
+    }
+    else {
+        beenRead.textContent = "Read";
+        beenRead.id = "details";
+        beenRead.className = "beenRead-true"
+    }
+    const removeButton = document.createElement("button");
+    removeButton.textContent = 'remove';
+    removeButton.addEventListener("click", (e) => {
+        const index = myLibrary.map(bookObject => bookObject.title).indexOf(bookObject.title);
+        if (index > -1) {
+            myLibrary.splice(index, 1);
+            removeAllChildNodes(container);
+            showBooks();
+        }
+        else console.log(index);
+    });
+
+    //appending each component to create card
+    container.appendChild(card);
+    imageContainer.appendChild(cardImage);
+    card.appendChild(imageContainer);
+    card.appendChild(bookTitle);
+    card.appendChild(bookAuthor);
+    card.appendChild(bookPages);
+    card.appendChild(beenRead);
+    card.appendChild(removeButton);
+}
+
 
 function showBooks() {
     for (let i = 0; i < myLibrary.length; i++) {
-        //create card element
-        const card = document.createElement("div");
-        card.className = "card";
-        const imageContainer = document.createElement("div");
-        imageContainer.className = "imgContainer";
-        //select bookObject from array
-        let bookObject = myLibrary[i];
-        //create cardImage element
-        const cardImage = document.createElement("img");
-        cardImage.src = bookObject.img_path;
-        //create section for book title
-        const bookTitle = document.createElement("h4");
-        bookTitle.textContent = bookObject.title;
-        bookTitle.id = "title";
-        //create p tag for book author
-        const bookAuthor = document.createElement("div");
-        bookAuthor.id = "details";
-        bookAuthor.textContent = "by " + bookObject.author;
-        //pages in book
-        const bookPages = document.createElement("div");
-        bookPages.id = "details";
-        bookPages.textContent = "Pages: " + bookObject.pages;
-        //has been read?
-        const beenRead = document.createElement("h4");
-        if (bookObject.hasBeenRead == "true") {
-            beenRead.textContent = "Not Read";
-            beenRead.id = "details";
-            beenRead.className = "beenRead-false"
-        }
-        else {
-            beenRead.textContent = "Read";
-            beenRead.id = "details";
-            beenRead.className = "beenRead-true"
-        }
-        container.appendChild(card);
-        imageContainer.appendChild(cardImage);
-        card.appendChild(imageContainer);
-        card.appendChild(bookTitle);
-        card.appendChild(bookAuthor);
-        card.appendChild(bookPages);
-        card.appendChild(beenRead);
+        createCard(i);
     };
 };
 
