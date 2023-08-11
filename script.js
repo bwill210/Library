@@ -4,47 +4,42 @@ let myLibrary = [
         "author": "J.K. Rowling",
         "img_path": "images/harryPotterAndTheSorcerersStone.jpg",
         "pages": 462,
-        "hasBeenRead": "false",
+        "read": "false",
     },
     {
         "title": "1984",
         "author": "George Orwell",
         "img_path": "images/1984.png",
         "pages": 221,
-        "hasBeenRead": "true",
+        "read": "true",
     },
     {
         "title": "Brave New World",
         "author": "Aldous Huxley",
         "img_path": "images/braveNewWorld.jpg",
         "pages": 203,
-        "hasBeenRead": "true",
+        "read": "false",
     },
     {
         "title": "Grapes of Wrath",
         "author": "John Steinbeck",
         "img_path": "images/grapesOfWrath.jpg",
         "pages": 266,
-        "hasBeenRead": "true",
+        "read": "true",
     },
 ];
 
-function Book(title, author, img_path) {
-    this.title = title;
-    this.author = author;
-    this.img_path = img_path;
-}
-
-function Book (title, author, pages, hasBeenRead) {
+function Book(title, author, pages, read) {
     this.title = title;
     this.author = author;
     this.pages = pages;
-    this.hasBeenRead = hasBeenRead;
-    this.img_path = '';
-}
+    this.read = read;
+};
 
-function addBookToLibrary(title, author, pages, hasBeenRead) {
-    let book = new Book(title, author, pages, hasBeenRead);
+const container = document.querySelector(".container");
+
+function addBookToLibrary(title, author, pages, read) {
+    let book = new Book(title, author, pages, read);
     container.textContent = '';
     myLibrary.push(book);
     showBooks();
@@ -57,7 +52,41 @@ function removeAllChildNodes(parent) {
     }
 }
 
-const container = document.querySelector(".container");
+function changeReadStatus(bookObject, beenRead, readBtn, myLibrary) {
+    const index = myLibrary.map(bookObject => bookObject.title).indexOf(bookObject.title);
+    if (index > -1) {
+        if (bookObject.read == 'false') {
+            bookObject.read = 'true';
+            beenRead.className = "beenRead-true";
+            beenRead.textContent = "Read";
+            readBtn.textContent = "mark as unread";
+            myLibrary[index].read = 'true'
+            removeAllChildNodes(container);
+            showBooks();
+        }
+        else {
+            bookObject.read = 'false';
+            beenRead.className = "beenRead-false";
+            beenRead.textContent = "Not Read";
+            readBtn.textContent = "mark as read";
+            myLibrary[index].read = 'false';
+            removeAllChildNodes(container);
+            showBooks();
+        }
+    }
+    else console.log("book does not exist: index = " + index);
+};
+
+function removeBook(bookObject, myLibrary) {
+    const index = myLibrary.map(bookObject => bookObject.title).indexOf(bookObject.title);
+    if (index > -1) {
+        myLibrary.splice(index, 1);
+        removeAllChildNodes(container);
+        showBooks();
+    }
+    //book doesnt exist in myLibrary
+    else console.log("index: " + index);
+}
 
 function createCard(index) {
     //create card element
@@ -84,7 +113,7 @@ function createCard(index) {
     bookPages.textContent = "Pages: " + bookObject.pages;
     //has been read?
     const beenRead = document.createElement("h4");
-    if (bookObject.hasBeenRead == "true") {
+    if (bookObject.read == "false") {
         beenRead.textContent = "Not Read";
         beenRead.id = "details";
         beenRead.className = "beenRead-false"
@@ -94,16 +123,18 @@ function createCard(index) {
         beenRead.id = "details";
         beenRead.className = "beenRead-true"
     }
+    const readBtn = document.createElement("button");
+    if (bookObject.read == "false") {
+        readBtn.textContent = "mark as read";
+    }
+    else readBtn.textContent = "mark as unread";
+    readBtn.addEventListener("click", (e) => {
+        changeReadStatus(bookObject, beenRead, readBtn, myLibrary);
+    });
     const removeButton = document.createElement("button");
     removeButton.textContent = 'remove';
     removeButton.addEventListener("click", (e) => {
-        const index = myLibrary.map(bookObject => bookObject.title).indexOf(bookObject.title);
-        if (index > -1) {
-            myLibrary.splice(index, 1);
-            removeAllChildNodes(container);
-            showBooks();
-        }
-        else console.log(index);
+        removeBook(bookObject, myLibrary);
     });
 
     //appending each component to create card
@@ -114,6 +145,7 @@ function createCard(index) {
     card.appendChild(bookAuthor);
     card.appendChild(bookPages);
     card.appendChild(beenRead);
+    card.appendChild(readBtn);
     card.appendChild(removeButton);
 }
 
